@@ -1,0 +1,16 @@
+#container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+#phys-container {
+  grid-column-start: 1;
+}
+
+#apts-container {
+  grid-column-start: 2;
+}
+
+table {
+  width: 80%;
+}
