@@ -9,11 +9,18 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static(`${__dirname}/../client/dist`))
 
+app.get('/physicians/:id', (req, res) => {
+  console.log('Sending all physician data')
+  res.send(data.physicians[req.params.id])
+})
+
 app.get('/physicians', (req, res) => {
+  console.log('Sending all physician data')
   res.send(data.physicians);
 })
 
 app.get('/physicians/:id/apts', (req, res) => {
+  console.log(`Sending appointment data physician with ID: ${req.params.id}`)
   const apts = data.appointments.filter(apt => {
     return apt.attending === parseInt(req.params.id)
   })
