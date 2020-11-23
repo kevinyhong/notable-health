@@ -4,16 +4,24 @@ import axios from 'axios';
 const Appointments = ({ view }) => {
 
   const [apts, setApts] = useState([]);
-  const [doc, setDoc] = useState({});
+  const [phys, setPhys] = useState({});
 
   const fetchApts = async () => {
     const aptRes = await axios.get(`/physicians/${view}/apts`);
+    
+    aptRes.data.forEach(apt => {
+      let apt_time = new Date(apt.apt_time);
+      let hour = apt_time.getHours();
+      let minutes = apt_time.getMinutes();
+      apt.apt_time = `${hour <= 12 ? hour : hour - 12}:${minutes < 10 ? '0' + minutes : minutes} ${hour < 12 ? 'AM' : 'PM'}`;
+    })
+
     setApts(aptRes.data);
   }
 
   const fetchDoc = async () => {
-    const docRes = await axios.get(`physicians/${view}`);
-    setDoc(docRes.data);
+    const physRes = await axios.get(`physicians/${view}`);
+    setPhys(physRes.data[0]);
   }
 
   useEffect(() => {
@@ -23,8 +31,8 @@ const Appointments = ({ view }) => {
 
   return (
     <div id='apts-container'>
-      <h1>{`Dr. ${doc.first_name} ${doc.last_name}`}</h1>
-      <h3>{doc.email}</h3>
+      <h1>{`Dr. ${phys.first_name} ${phys.last_name}`}</h1>
+      <h3>{phys.email}</h3>
       <table id='apt-table'>
         <tr>
           <th>#</th>
@@ -35,8 +43,8 @@ const Appointments = ({ view }) => {
         {apts.map((apt, index) => (
           <tr>
             <th>{index + 1}</th>
-            <th>{apt.patient_name}</th>
-            <th>{apt.time}</th>
+            <th>{`${apt.first_name} ${apt.last_name}`}</th>
+            <th>{apt.apt_time}</th>
             <th>{apt.kind ? 'Follow-Up' : 'New Patient'}</th>
           </tr>
         ))}
@@ -44,6 +52,5 @@ const Appointments = ({ view }) => {
     </div>
   )
 }
-
 
 export default Appointments;

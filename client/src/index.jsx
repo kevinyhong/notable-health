@@ -61,8 +61,7 @@ import Appointments from './Appointments.jsx';
 
 // React Functional Component Using Hooks
 const App = (props) => {
-
-  const [view, setView] = useState(0);
+  const [view, setView] = useState(1);
 
   return (
     <div id='container'>
