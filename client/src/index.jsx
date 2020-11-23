@@ -65,7 +65,7 @@ const App = (props) => {
 
   return (
     <div id='container'>
-      <Physicians select={setView}/>
+      <Physicians view={view} select={setView}/>
       <Appointments view={view} />
     </div>
   )

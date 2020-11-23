@@ -32,9 +32,9 @@ const Appointments = ({ view }) => {
   return (
     <div id='apts-container'>
       <h1>{`Dr. ${phys.first_name} ${phys.last_name}`}</h1>
-      <h3>{phys.email}</h3>
+      <p>{phys.email}</p>
       <table id='apt-table'>
-        <tr>
+        <tr id='table-headers'>
           <th>#</th>
           <th>Name</th>
           <th>Time</th>

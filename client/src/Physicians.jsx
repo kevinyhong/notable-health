@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const Physicans = ({ select }) => {
+const Physicans = ({ view, select }) => {
 
   const [docs, setDocs] = useState([]);
   
@@ -20,7 +20,7 @@ const Physicans = ({ select }) => {
       <h3>Physicians</h3>
       <ul>
         {docs.map((phys, index) => (
-          <li className="phys" key={index} onClick={() => { select(phys.id) }}>{`${phys.last_name}, ${phys.first_name}`}</li>
+          <li className={view === phys.id ? 'phys selected' : 'phys'} key={index} onClick={() => { select(phys.id) }}>{`${phys.last_name}, ${phys.first_name}`}</li>
         ))}
       </ul>
     </div>
